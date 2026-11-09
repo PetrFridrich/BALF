@@ -29,6 +29,42 @@ Pravidla, která drží záznam použitelný:
 5. Každý `README.md` experimentu odpovídá na: co jsme chtěli zjistit, jak jsme to
    postavili, co z toho vyšlo, a **jaký je verdikt** (jde dál / zamítnuto a proč).
 
+## Cíl a zadání
+
+Dvoufázová pipeline nad snímky BALF:
+
+1. **Detekce** — najdi všechny buňky bez ohledu na typ. Výstup jsou **instanční
+   masky**, tedy obrys každé buňky zvlášť. Z masek se dopočítají počty, bounding
+   boxy i morfologie (velikost, tvar), takže maska je nadmnožina ostatních výstupů.
+2. **Klasifikace** — typ buňky se určuje **zvlášť**, na výřezech z fáze 1.
+
+Každá fáze se ladí a vyhodnocuje samostatně. Detekce musí fungovat i předtím, než
+existují anotace typů buněk — to je hlavní důvod pro dvoufázové rozdělení.
+
+### Anotace
+
+Vznikají **poloautomaticky**: předtrénovaný model vygeneruje návrhy masek a
+uživatel je opravuje a doplňuje. Ruční kreslení od nuly je mimo hru — jeden
+snímek 4024×3036 může obsahovat tisíce buněk.
+
+Vedlejší efekt, který je potřeba vytěžit: kvalita těch návrhů je **sama o sobě
+výsledek**. Změř ji a zapiš, než se začne cokoli dolaďovat.
+
+### Hardware: jen CPU
+
+Žádná GPU, ani lokální, ani cloudová. Důsledky:
+
+- **Trénink segmentačního modelu od nuly je mimo hru.** Fáze 1 stojí na
+  předtrénovaném modelu a inferenci. Sázíme na to, že předtrénovaný model
+  zgeneralizuje na tyhle snímky — pokud ne, prostor řešení se výrazně zužuje a
+  je to potřeba zjistit co nejdřív.
+- **Klasifikátor ve fázi 2 na CPU reálný je** — pracuje na malých výřezech buněk,
+  ne na celých snímcích.
+- Inference na snímku 4024×3036 bude na CPU pomalá. **Změř ji jako první věc**,
+  než se na tom začne stavět cokoli dalšího.
+- Preferuj dlaždicování (tiling) a dávkové offline zpracování před čímkoli
+  interaktivním.
+
 ## Technologie
 
 **Nejsou předem dané.** Volba nástrojů je otevřená a rozhoduje se podle toho, co
@@ -102,8 +138,9 @@ nepřekládej.
 
 Nerozhodnuto — než na tom začneš stavět, zeptej se:
 
-- Co je výstup modelu (boxy / instanční masky / počty / klasifikace typů buněk)?
-- Rozlišují se typy buněk, nebo jen buňka vs. pozadí?
-- Jak vzniknou anotace a kdo je udělá?
-- Jaká metrika rozhoduje o úspěchu a jaká hodnota je „dost dobrá"?
-- Dostupný hardware (GPU / CPU)?
+- **Jaká metrika rozhoduje o úspěchu a jaká hodnota je „dost dobrá"?**
+- Které typy buněk se mají ve fázi 2 rozlišovat a jak často se ve vzorcích
+  vyskytují? (vzácné typy budou mít málo příkladů)
+- V jakém nástroji chce uživatel masky opravovat?
+- Jaké je zvětšení, respektive přibližný průměr buňky v pixelech? Předtrénované
+  segmentační modely to potřebují jako vstupní parametr.
