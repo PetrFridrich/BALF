@@ -37,15 +37,32 @@ Dvoufázová pipeline nad snímky BALF:
    masky**, tedy obrys každé buňky zvlášť. Z masek se dopočítají počty, bounding
    boxy i morfologie (velikost, tvar), takže maska je nadmnožina ostatních výstupů.
 2. **Klasifikace** — typ buňky se určuje **zvlášť**, na výřezech z fáze 1.
+   Rozlišované typy: **makrofágy, lymfocyty, neutrofily, eozinofily**.
+   Počítej s velkou nevyvážeností: v normálním BALF tvoří makrofágy běžně přes
+   80 % buněk, eozinofily bývají vzácné. Stratifikuj a nevyhodnocuj podle
+   celkové accuracy — ta je při takovém rozložení bezcenná.
 
 Každá fáze se ladí a vyhodnocuje samostatně. Detekce musí fungovat i předtím, než
 existují anotace typů buněk — to je hlavní důvod pro dvoufázové rozdělení.
 
+### Metrika úspěchu
+
+Rozhoduje **přesnost diferenciálního počtu** — procentuální zastoupení typů
+buněk ve vzorku proti referenci. Model smí chybovat na jednotlivých buňkách,
+pokud agregovaný poměr sedí. Důsledky:
+
+- Vyhodnocuj **na úrovni vzorku**, ne jednotlivého snímku.
+- Systematické vychýlení jednoho typu je dražší než náhodný šum, který se
+  vyruší. Sleduj bias, ne jen průměrnou odchylku.
+- Detekční metriky (F1, IoU) jsou **diagnostika, ne cíl.** Měř je, ale
+  neoptimalizuj podle nich.
+
 ### Anotace
 
 Vznikají **poloautomaticky**: předtrénovaný model vygeneruje návrhy masek a
-uživatel je opravuje a doplňuje. Ruční kreslení od nuly je mimo hru — jeden
-snímek 4024×3036 může obsahovat tisíce buněk.
+uživatel je opravuje a doplňuje v **Cellpose GUI** (má tenhle cyklus zabudovaný
+jako hlavní scénář použití). Ruční kreslení od nuly je mimo hru — jeden snímek
+4024×3036 může obsahovat tisíce buněk.
 
 Vedlejší efekt, který je potřeba vytěžit: kvalita těch návrhů je **sama o sobě
 výsledek**. Změř ji a zapiš, než se začne cokoli dolaďovat.
@@ -103,6 +120,23 @@ ne `PetrFridrich`).
 Vzorky: `sample_1_2122_23`, `sample_2_2122_23`, `sample_3_2285_23`,
 `sample_4_2285_23`, `sample_5_2123_23`.
 
+**Změřeno** na `sample_1_2122_23/2023_12_14_image_1.png` (zatím jediný snímek,
+ber jako řádový odhad):
+
+| | |
+|---|---|
+| Průměr jádra, medián | ~69 px |
+| Rozsah jader (10.–90. percentil) | 39–95 px |
+| Odhad průměru celé buňky | ~100–140 px |
+| Popředí | ~19 % plochy |
+
+Pozadí je světlé a čisté, kontrast velký — prahování najde popředí triviálně.
+Těžká část je **oddělit dotýkající se buňky ve shlucích**, proto instanční masky.
+
+Praktický důsledek pro Cellpose: jeho výchozí modely jsou trénované na objektech
+o průměru ~30 px, takže si snímek sám přeškáluje zhruba 4× dolů. To je pro CPU
+dobrá zpráva — nepracuje se s plnými 12 Mpx.
+
 **Masky ani anotace neexistují.** Nepiš kód, který je načítá, dokud nevznikne
 anotační formát — ten nejdřív dohodni s uživatelem.
 
@@ -138,9 +172,8 @@ nepřekládej.
 
 Nerozhodnuto — než na tom začneš stavět, zeptej se:
 
-- **Jaká metrika rozhoduje o úspěchu a jaká hodnota je „dost dobrá"?**
-- Které typy buněk se mají ve fázi 2 rozlišovat a jak často se ve vzorcích
-  vyskytují? (vzácné typy budou mít málo příkladů)
-- V jakém nástroji chce uživatel masky opravovat?
-- Jaké je zvětšení, respektive přibližný průměr buňky v pixelech? Předtrénované
-  segmentační modely to potřebují jako vstupní parametr.
+- **Odkud vezmeme referenční diferenciál?** Metrika je přesnost diferenciálního
+  počtu, ale žádné referenční hodnoty pro těchto 5 vzorků zatím neexistují. Bez
+  nich se úspěch nedá změřit.
+- Jaká odchylka diferenciálu je ještě „dost dobrá"?
+- Kolik snímků se bude anotovat a v jakém horizontu?
