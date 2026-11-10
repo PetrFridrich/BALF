@@ -29,6 +29,34 @@ Pravidla, která drží záznam použitelný:
 5. Každý `README.md` experimentu odpovídá na: co jsme chtěli zjistit, jak jsme to
    postavili, co z toho vyšlo, a **jaký je verdikt** (jde dál / zamítnuto a proč).
 
+## Pracovní postup
+
+### Jazyk
+
+- **Anglicky:** kód, identifikátory, komentáře v kódu, commit messages.
+- **Česky:** README, CLAUDE.md, závěry a verdikty experimentů, komunikace
+  s uživatelem.
+- Technické termíny a identifikátory nepřekládej ani v českém textu.
+
+### Autonomie
+
+Experimenty **plánuj, spouštěj a vyhodnocuj sám** a přijď až se závěrem. Neptej
+se na svolení ke každému pokusu — většina je laciná a odpověď je zajímavější
+než plán.
+
+Zeptej se vždy před:
+
+- zápisem nebo mazáním v HF datasetu,
+- přepsáním historie gitu nebo mazáním větví,
+- rozhodnutím, které zásadně mění směr projektu.
+
+### Výstupy experimentů
+
+- **Do gitu**, ke složce experimentu: metriky, tabulky, pár náhledových obrázků.
+  Jsou pak vidět přímo v README bez stahování.
+- **Na HF dataset:** vygenerované masky a velké artefakty.
+- Orientační hranice: cokoli nad ~1 MB patří na HF, ne do gitu.
+
 ## Cíl a zadání
 
 Dvoufázová pipeline nad snímky BALF:
@@ -147,7 +175,8 @@ verze tím nafoukla `.git` na 412 MB.
 ## Git
 
 - Default větev `main`. Historie začíná prázdným orphan commitem `e981290`.
-- Vývoj na zadané branchi, do `main` jen po dohodě.
+- **Pushuj přímo na `main`**, bez PR a bez ptaní. Když se něco nepovede,
+  revertuje se.
 - **`idea` je archiv** původního prototypu (`acc2f13`). Jediná kopie staré práce
   na GitHubu — **nemazat, nepřepisovat**.
 - Do `.gitignore` patří data, `.venv/`, `results/`, `__pycache__/`.
@@ -162,11 +191,6 @@ Co v ní nefungovalo a nemá cenu zavádět znovu:
 - `target['boxes']` jako `torch.int64`; torchvision detekční modely chtějí float.
 - Device hardcoded na `cpu` místo detekce CUDA.
 - `__pycache__/*.pyc` commitnuté v gitu.
-
-## Komunikace
-
-Uživatel píše česky, odpovídej česky. Technické termíny a identifikátory
-nepřekládej.
 
 ## Otevřené otázky
 
