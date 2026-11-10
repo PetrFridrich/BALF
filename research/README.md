@@ -22,3 +22,6 @@ cenu než to, co vyšlo.
   takže škálování z výřezů 512²/1024² přestřelilo 3×.
 - **Recall zatím není změřený.** Bez ručních anotací je „najde většinu buněk"
   vizuální soud, ne číslo.
+- **V hustých shlucích model přechází na segmentaci jader** místo celých buněk,
+  takže „počet objektů" není „počet buněk" a mezi vzorky se nedá srovnávat.
+  Nejdůležitější otevřený problém — ohrožuje přímo metriku diferenciálního počtu.

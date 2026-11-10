@@ -66,6 +66,41 @@ vstupu, ne cíl segmentace. Vrací vždy celé buňky.
 Plánované srovnání „jádra vs. buňky" tím **padá**: obě varianty dávají buňky a
 `nuclei_prescaled` je jen 3,5× pomalejší cesta ke stejné odpovědi.
 
+### Konzistence napříč vzorky — tady je problém
+
+Po jednom snímku z každého vzorku, `cells_prescaled`:
+
+| Vzorek | Objektů | Pokrytí | Medián | p10 | p90 |
+|---|---|---|---|---|---|
+| sample_1_2122_23 | 513 | 49,4 % | 120,4 | 80,2 | 153,1 |
+| sample_2_2122_23 | 502 | 30,6 % | **76,5** | **43,1** | 143,6 |
+| sample_3_2285_23 | 88 | 9,5 % | 124,6 | 68,4 | 180,4 |
+| sample_4_2285_23 | 129 | 15,2 % | 135,3 | 68,9 | 170,3 |
+| sample_5_2123_23 | 268 | 28,9 % | 129,4 | 77,1 | 157,5 |
+
+Čas byl u všech 27,5–32,6 s, tedy stabilní.
+
+**Rozptyl počtu 88 až 513 je zčásti skutečný.** `sample_3` je vizuálně opravdu
+řídký — na skle je málo buněk, takže 88 objektů odpovídá realitě, ne selhání.
+
+**Ale `sample_2` odhaluje vadu.** Je to hustý shluk. Po obvodu model obkresluje
+celé buňky (~120 px), zatímco **uvnitř shluku obkresluje jádra** (~45–70 px),
+protože hranice cytoplazmy tam nejsou rozlišitelné. Odtud medián 76,5 px a p10
+43,1 px proti 68–80 px u ostatních, při zachovaném p90. Rozdělení je bimodální:
+jeden výstup míchá objekty na úrovni buněk a na úrovni jader.
+
+Důsledek, který je potřeba brát vážně:
+
+> **„Počet objektů" není „počet buněk"** a mezi vzorky se nedá přímo srovnávat.
+
+Pro metriku projektu — přesnost diferenciálního počtu — je to zásadní: pokud se
+v hustých oblastech počítají jádra místo buněk, bude diferenciál systematicky
+vychýlený ve prospěch vzorků s jiným rozložením hustoty. A systematické
+vychýlení je přesně to, co má metrika trestat nejvíc.
+
+Tohle **neřeší žádné doladění rychlosti** a je to hlavní věc k vyřešení dřív,
+než se postaví fáze 2.
+
 ## Čemu jsme se spletli
 
 Dvě chyby, obě stojí za zapamatování:
@@ -92,7 +127,9 @@ Co z toho plyne pro další práci:
   nemá důvod.
 - Segmentaci jader tímhle modelem nedostaneme. Pro dvoufázový plán to nevadí —
   fáze 2 pracuje s výřezy celých buněk.
-- Zbývá ověřit na zbylých vzorcích, jestli je chování konzistentní.
+- **Konzistence napříč vzorky je problém**, viz výše. V hustých shlucích model
+  přechází na jádra, takže počty objektů nejsou srovnatelné. Vyřešit dřív než
+  fázi 2.
 
 ## Co tenhle experiment neříká
 
@@ -101,3 +138,8 @@ Co z toho plyne pro další práci:
   s ručně opravenými maskami.
 - Pokrytí 49,4 % je popis výstupu, ne metrika kvality.
 - Časy platí pro 4 vlákna v tomhle kontejneru, ne pro uživatelův Windows stroj.
+- Měřil se **jeden snímek z každého vzorku**, ne všech 25. Rozptyl uvnitř vzorku
+  tedy neznáme.
+- IoU 0,97 mezi `full` a `prescaled` je ověřené jen na `sample_1`. U hustého
+  `sample_2` může být předzmenšení horší — menší buňky se po zmenšení 4× dostanou
+  pod rozlišení, na kterém Cellpose pracuje.
