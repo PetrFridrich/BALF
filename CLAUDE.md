@@ -3,6 +3,26 @@
 Výzkumný projekt nad snímky bronchoalveolární lavage. Staví se od začátku,
 společně, výzkumným postupem.
 
+## Kontext projektu
+
+Hobby projekt jednoho člověka, **bez termínu**, ale s ambicí dojít do praxe.
+Uživatel pracuje na **Windows** — postupy, které má spouštět u sebe (Cellpose
+GUI, anotace), piš pro Windows.
+
+Co z toho plyne pro rozhodování:
+
+- **Důslednost před rychlostí.** Není kam spěchat. Raději jeden pořádně
+  vyhodnocený a zapsaný experiment než tři odfláknuté.
+- **Nejbližší milník není hotový model, ale něco ukazatelného.** Uživatel chce
+  s prvními výsledky oslovit lékaře a nechce přijít s prázdnýma rukama.
+  Vizuálně přesvědčivý výstup — překryvy detekovaných buněk přes snímek — má
+  proto větší cenu než o dvě procenta lepší metrika.
+- **Spolupráce s lékařem je až druhý krok**, podmíněný prvními výsledky. Teprve
+  z ní vzejdou referenční diferenciály, další vzorky a případná pomoc
+  s anotacemi.
+- **Neblokuj se chybějící referencí.** Postav vyhodnocení tak, aby se reference
+  dala doplnit později, a zatím měř, co měřit jde.
+
 ## Jak pracujeme
 
 **Research-first.** Nic se nestaví „rovnou správně". Každý nápad dostane vlastní
@@ -194,10 +214,15 @@ Co v ní nefungovalo a nemá cenu zavádět znovu:
 
 ## Otevřené otázky
 
-Nerozhodnuto — než na tom začneš stavět, zeptej se:
+Nerozhodnuto, ale **nic z toho neblokuje první experimenty**:
 
-- **Odkud vezmeme referenční diferenciál?** Metrika je přesnost diferenciálního
-  počtu, ale žádné referenční hodnoty pro těchto 5 vzorků zatím neexistují. Bez
-  nich se úspěch nedá změřit.
+- **Referenční diferenciál** pro 5 současných vzorků neexistuje. Nejspíš přijde
+  od lékaře ve druhé fázi. Do té doby se absolutní přesnost diferenciálu změřit
+  nedá — měř, co jde (konzistence mezi snímky téhož vzorku, kvalita masek proti
+  ručně opraveným).
 - Jaká odchylka diferenciálu je ještě „dost dobrá"?
 - Kolik snímků se bude anotovat a v jakém horizontu?
+- Kde poběží finální pipeline — u uživatele na Windows, nebo jinde?
+
+**Další data zatím nepřibudou**, dokud nebudou první výsledky. Počítej s pěti
+vzorky ze 14. 12. 2023 a nepřekombinovávej nic kvůli hypotetickému růstu.
