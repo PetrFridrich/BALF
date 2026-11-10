@@ -1,0 +1,21 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Data — images live on HuggingFace (Fido18246/BALF), never in git
+data/
+*.png.download
+
+# Large experiment artifacts; small previews are committed deliberately
+**/outputs/*.npy
+**/outputs/masks/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
