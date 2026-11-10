@@ -85,7 +85,12 @@ Dvoufázová pipeline nad snímky BALF:
    masky**, tedy obrys každé buňky zvlášť. Z masek se dopočítají počty, bounding
    boxy i morfologie (velikost, tvar), takže maska je nadmnožina ostatních výstupů.
 2. **Klasifikace** — typ buňky se určuje **zvlášť**, na výřezech z fáze 1.
-   Rozlišované typy: **makrofágy, lymfocyty, neutrofily, eozinofily**.
+   **Seznam typů není konečný.** Zatím pracujeme s makrofágy, lymfocyty,
+   neutrofily a eozinofily, ale finální sadu určí až lékař ve druhé fázi —
+   může přibýt epitel, žírné buňky, zařazení pro nerozpoznatelné či poškozené
+   buňky a podobně. Navrhuj proto tak, aby **přidání nebo změna tříd byla
+   levná**: žádný zadrátovaný počet tříd, seznam v configu, metriky počítané
+   dynamicky přes zjištěné třídy.
    Počítej s velkou nevyvážeností: v normálním BALF tvoří makrofágy běžně přes
    80 % buněk, eozinofily bývají vzácné. Stratifikuj a nevyhodnocuj podle
    celkové accuracy — ta je při takovém rozložení bezcenná.
