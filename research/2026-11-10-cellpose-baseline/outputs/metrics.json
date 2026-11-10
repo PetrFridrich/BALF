@@ -1,0 +1,52 @@
+{
+  "cellpose_version": "4.2.1.1",
+  "device": "cpu",
+  "strategies": [
+    {
+      "name": "cells_prescaled",
+      "target": "cells",
+      "diameter": 30,
+      "prescale": 0.25
+    },
+    {
+      "name": "nuclei_prescaled",
+      "target": "nuclei",
+      "diameter": 30,
+      "prescale": 0.43478260869565216
+    }
+  ],
+  "runs": [
+    {
+      "sample": "sample_1_2122_23",
+      "image": "2023_12_14_image_1.png",
+      "strategy": "cells_prescaled",
+      "target": "cells",
+      "diameter_px": 30,
+      "prescale": 0.25,
+      "inference_px": "1006x759",
+      "seconds": 30.9,
+      "preview": "sample_1_2122_23_cells_prescaled.png",
+      "count": 513,
+      "coverage_pct": 49.44,
+      "diameter_median_px": 120.4,
+      "diameter_p10_px": 80.2,
+      "diameter_p90_px": 153.1
+    },
+    {
+      "sample": "sample_1_2122_23",
+      "image": "2023_12_14_image_1.png",
+      "strategy": "nuclei_prescaled",
+      "target": "nuclei",
+      "diameter_px": 30,
+      "prescale": 0.435,
+      "inference_px": "1750x1320",
+      "seconds": 109.7,
+      "preview": "sample_1_2122_23_nuclei_prescaled.png",
+      "count": 521,
+      "coverage_pct": 49.63,
+      "diameter_median_px": 119.9,
+      "diameter_p10_px": 71.3,
+      "diameter_p90_px": 152.5
+    }
+  ]
+}

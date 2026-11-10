@@ -19,3 +19,6 @@ data/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Full-size intermediate renders; committed previews are .jpg
+research/**/outputs/*.png

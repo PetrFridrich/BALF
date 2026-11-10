@@ -35,7 +35,7 @@ CELL_DIAMETER_PX = 120
 # What Cellpose rescales to internally.
 NATIVE_DIAMETER_PX = 30
 
-PREVIEW_MAX_WIDTH = 1200
+PREVIEW_MAX_WIDTH = 1400
 OUT_DIR = Path(__file__).parent / "outputs"
 
 
@@ -98,17 +98,26 @@ def upscale_masks(masks: np.ndarray, shape: tuple[int, int]) -> np.ndarray:
 
 
 def save_overlay(image: np.ndarray, masks: np.ndarray, path: Path) -> None:
+    """Preview with instance boundaries drawn ON the downscaled image.
+
+    Boundaries must be computed after downscaling: a 1px outline drawn at full
+    resolution all but disappears when the image is then shrunk ~3x, which
+    makes a good segmentation look full of holes.
+    """
     from skimage.segmentation import find_boundaries
 
-    preview = image.copy()
-    preview[find_boundaries(masks, mode="outer")] = [255, 0, 0]
+    h, w = image.shape[:2]
+    scale = min(1.0, PREVIEW_MAX_WIDTH / w)
+    size = (int(w * scale), int(h * scale))
 
-    img = Image.fromarray(preview)
-    w, h = img.size
-    if w > PREVIEW_MAX_WIDTH:
-        scale = PREVIEW_MAX_WIDTH / w
-        img = img.resize((PREVIEW_MAX_WIDTH, int(h * scale)), Image.LANCZOS)
-    img.save(path, optimize=True)
+    small = np.array(Image.fromarray(image).resize(size, Image.LANCZOS))
+    small_masks = np.array(
+        Image.fromarray(masks.astype(np.int32), mode="I").resize(size, Image.NEAREST)
+    )
+
+    small[find_boundaries(small_masks, mode="outer")] = [255, 0, 0]
+    # JPEG keeps previews well under the 1 MB that would send them to HF instead.
+    Image.fromarray(small).save(path, quality=88, optimize=True)
 
 
 def object_stats(masks: np.ndarray) -> dict:
@@ -168,7 +177,7 @@ def main() -> int:
             masks = upscale_masks(masks, (h, w))
             stats = object_stats(masks)
 
-            preview = OUT_DIR / f"{sample}_{strategy.name}.png"
+            preview = OUT_DIR / f"{sample}_{strategy.name}.jpg"
             save_overlay(image, masks, preview)
 
             masks_by_target.setdefault(strategy.target, {})[strategy.name] = masks
