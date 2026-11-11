@@ -95,6 +95,24 @@ Dvoufázová pipeline nad snímky BALF:
    80 % buněk, eozinofily bývají vzácné. Stratifikuj a nevyhodnocuj podle
    celkové accuracy — ta je při takovém rozložení bezcenná.
 
+### Vícejaderné buňky — pozor na naivní pravidla
+
+**„Jedna buňka = jedno jádro" neplatí.** Vícejaderné buňky v BALF existují a mají
+diagnostický význam, takže postup, který je rozdělí na několik buněk, dává
+špatnou odpověď — a to zrovna u nálezu, na kterém záleží.
+
+Důsledky pro návrh:
+
+- Marker-controlled watershed seedovaný jádry rozdělí vícejadernou buňku. Nesmí
+  se používat jako tvrdé pravidlo bez pojistky.
+- Identitu buňky určuje **cytoplazma**, ne jádro. Počet jader v buňce je
+  **příznak, který se má měřit a hlásit**, ne kritérium pro dělení.
+- Změřeno na anotacích z diplomky: ~32 % souvislých oblastí cytoplazmy obsahuje
+  víc než jedno jádro. Toto číslo **nelze** číst jako „32 % buněk je
+  vícejaderných" — třítřídní anotace nerozliší vícejadernou buňku od několika
+  dotýkajících se buněk. Namátková vizuální kontrola ukazuje, že převažuje druhá
+  možnost, ale změřené to není.
+
 Každá fáze se ladí a vyhodnocuje samostatně. Detekce musí fungovat i předtím, než
 existují anotace typů buněk — to je hlavní důvod pro dvoufázové rozdělení.
 
@@ -190,7 +208,26 @@ Praktický důsledek pro Cellpose: jeho výchozí modely jsou trénované na obj
 o průměru ~30 px, takže si snímek sám přeškáluje zhruba 4× dolů. To je pro CPU
 dobrá zpráva — nepracuje se s plnými 12 Mpx.
 
-**Masky ani anotace neexistují.** Nepiš kód, který je načítá, dokud nevznikne
+### Existující anotace z dřívější práce
+
+Pixelové anotace **existují**, jen ne pro tenhle dataset — pocházejí ze starších
+projektů uživatele a jsou ve **stejné doméně** (stejné focení 2023_12_14, stejné
+barvení, stejný mikroskop):
+
+| Zdroj | Snímků | Rozlišení | Třídy |
+|---|---|---|---|
+| `github.com/Fido18246/ing_thesis` → `Data/{Images,Labels}_ALL` | **50** | 2012×1518 | 0 pozadí · 1 cytoplazma · 2 jádro |
+| `github.com/PetrFridrich/UnsupervisedCellImageSegmentation` → `data/labels` | 5 | 1440×1080 | totéž |
+
+2012×1518 je **přesně polovina** z 4024×3036. Ověřeno, že těch 50 snímků
+**nejsou** tytéž snímky jako na HF (korelace obsahu 0,09–0,41), ale ze stejné
+série. Použitelné jako ground truth pro segmentaci pozadí/cytoplazmy/jader —
+**nejsou instanční**, neoddělují jednotlivé buňky.
+
+Diplomka `ing_thesis` řeší segmentaci BAL klasickým ML (filter bank → features →
+SVM/RF). Je to reference, ne mantinel, stejně jako větev `idea`.
+
+**Instanční masky ani anotace typů buněk neexistují.** Nepiš kód, který je načítá, dokud nevznikne
 anotační formát — ten nejdřív dohodni s uživatelem.
 
 Stahování: `huggingface_hub.hf_hub_download(..., repo_type='dataset')`.
