@@ -12,6 +12,8 @@ cenu než to, co vyšlo.
 
 | 2026-11-11 | [nuclei-watershed](2026-11-11-nuclei-watershed/) | Pomůže segmentaci, když modelu dáme mapu jader a cytoplazmy? | ✅ ano, ale detektor jader musí být řízený — neřízené shlukování má IoU 0,50 |
 
+| 2026-11-13 | [supervised-nuclei](2026-11-13-supervised-nuclei/) | Zreprodukovat RF z diplomky a zkusit lepší model | ⚠️ Jaccard 0,772 místo 0,812; lepší model než RF neexistuje, ale HGB je 22× levnější |
+
 **Legenda:** ✅ jde dál · ❌ zamítnuto · 🔄 běží · ⏸️ odloženo
 
 ## Co z dosavadních experimentů platí
@@ -29,6 +31,12 @@ cenu než to, co vyšlo.
   CPU) — proti 0,50 u neřízeného shlukování. Měřeno uživatelem v diplomce.
 - **Watershed z dobrých jader odděluje dotýkající se buňky**, ale nesmí být
   tvrdé pravidlo kvůli vícejaderným buňkám.
+- **Volba modelu u semantické segmentace nerozhoduje** — RF, ExtraTrees a
+  HistGradientBoosting jsou statisticky nerozlišitelné (rozpětí 0,004 při σ 0,013).
+  Pracovní model je **HistGradientBoosting**, protože dá totéž za 11 s místo 246 s.
+- **Trénovací vzorek musí držet skutečné rozložení tříd.** Vyvážené vzorkování
+  (33/33/33 proti reálným 88/7/5) stálo 0,05 Jaccardu a ztrojnásobilo rozptyl
+  mezi foldy. Pozná se to podle propadlé accuracy při zachovalém Jaccardu.
 - **Recall zatím není změřený.** Bez ručních anotací je „najde většinu buněk"
   vizuální soud, ne číslo.
 - **V hustých shlucích model přechází na segmentaci jader** místo celých buněk,
