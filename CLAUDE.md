@@ -262,6 +262,14 @@ Nerozhodnuto, ale **nic z toho neblokuje první experimenty**:
   od lékaře ve druhé fázi. Do té doby se absolutní přesnost diferenciálu změřit
   nedá — měř, co jde (konzistence mezi snímky téhož vzorku, kvalita masek proti
   ručně opraveným).
+- **Umí naše reprezentace vyjádřit překryv buněk?** Mapa labelů (Cellpose,
+  watershed) přiřadí každý pixel právě jedné buňce, takže **z principu neumí
+  překryv** — a v nátěru buňky přes sebe reálně leží. Překrývající se bounding
+  boxy nebo masky po instancích (seznam binárních masek, jako u Mask R-CNN)
+  to umí. Souvisí to s pojistkou proti dělení vícejaderných buněk: když se
+  plocha nemusí rozdělit, nemusí se volit mezi „jedna vícejaderná buňka" a
+  „dvě dotýkající se" způsobem, který jednu možnost zničí. Nerozhodnuto —
+  chybí čím ověřit, která varianta dá lepší diferenciál.
 - Jaká odchylka diferenciálu je ještě „dost dobrá"?
 - Kolik snímků se bude anotovat a v jakém horizontu?
 - Kde poběží finální pipeline — u uživatele na Windows, nebo jinde?
