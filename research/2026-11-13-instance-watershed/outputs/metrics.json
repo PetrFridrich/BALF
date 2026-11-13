@@ -1,0 +1,243 @@
+{
+  "note": "instance quality is NOT scored - no instance ground truth exists",
+  "train_images": 40,
+  "test_images": 10,
+  "summary": {
+    "watershed": {
+      "count_mean": 45.6,
+      "coverage_pct_mean": 11.854,
+      "diameter_median_mean": 83.45,
+      "foreground_iou_mean": 0.735,
+      "seconds_mean": 15.26
+    },
+    "cellpose": {
+      "count_mean": 26.3,
+      "coverage_pct_mean": 8.614,
+      "diameter_median_mean": 97.94,
+      "foreground_iou_mean": 0.578,
+      "seconds_mean": 34.77
+    }
+  },
+  "per_image": [
+    {
+      "image": "2023_12_14_image_000",
+      "semantic_seconds": 14.4,
+      "watershed": {
+        "count": 36,
+        "coverage_pct": 10.05,
+        "diameter_median_px": 91.2,
+        "diameter_p10_px": 27.7,
+        "diameter_p90_px": 149.3,
+        "foreground_iou_vs_labels": 0.777,
+        "seconds": 15.0
+      },
+      "cellpose": {
+        "count": 26,
+        "coverage_pct": 6.63,
+        "diameter_median_px": 88.5,
+        "diameter_p10_px": 57.4,
+        "diameter_p90_px": 139.3,
+        "foreground_iou_vs_labels": 0.621,
+        "seconds": 36.1
+      }
+    },
+    {
+      "image": "2023_12_14_image_001",
+      "semantic_seconds": 14.9,
+      "watershed": {
+        "count": 35,
+        "coverage_pct": 8.95,
+        "diameter_median_px": 76.9,
+        "diameter_p10_px": 18.5,
+        "diameter_p90_px": 156.1,
+        "foreground_iou_vs_labels": 0.714,
+        "seconds": 15.2
+      },
+      "cellpose": {
+        "count": 16,
+        "coverage_pct": 6.31,
+        "diameter_median_px": 107.8,
+        "diameter_p10_px": 71.7,
+        "diameter_p90_px": 170.4,
+        "foreground_iou_vs_labels": 0.528,
+        "seconds": 35.2
+      }
+    },
+    {
+      "image": "2023_12_14_image_002",
+      "semantic_seconds": 14.9,
+      "watershed": {
+        "count": 57,
+        "coverage_pct": 10.43,
+        "diameter_median_px": 53.5,
+        "diameter_p10_px": 19.1,
+        "diameter_p90_px": 145.9,
+        "foreground_iou_vs_labels": 0.733,
+        "seconds": 15.3
+      },
+      "cellpose": {
+        "count": 22,
+        "coverage_pct": 6.65,
+        "diameter_median_px": 86.2,
+        "diameter_p10_px": 51.5,
+        "diameter_p90_px": 160.6,
+        "foreground_iou_vs_labels": 0.51,
+        "seconds": 35.1
+      }
+    },
+    {
+      "image": "2023_12_14_image_003",
+      "semantic_seconds": 15.6,
+      "watershed": {
+        "count": 74,
+        "coverage_pct": 17.16,
+        "diameter_median_px": 71.2,
+        "diameter_p10_px": 18.2,
+        "diameter_p90_px": 146.2,
+        "foreground_iou_vs_labels": 0.731,
+        "seconds": 16.0
+      },
+      "cellpose": {
+        "count": 42,
+        "coverage_pct": 14.54,
+        "diameter_median_px": 91.6,
+        "diameter_p10_px": 42.0,
+        "diameter_p90_px": 175.6,
+        "foreground_iou_vs_labels": 0.672,
+        "seconds": 38.9
+      }
+    },
+    {
+      "image": "2023_12_14_image_004",
+      "semantic_seconds": 15.1,
+      "watershed": {
+        "count": 41,
+        "coverage_pct": 8.92,
+        "diameter_median_px": 74.8,
+        "diameter_p10_px": 28.1,
+        "diameter_p90_px": 140.3,
+        "foreground_iou_vs_labels": 0.747,
+        "seconds": 15.4
+      },
+      "cellpose": {
+        "count": 21,
+        "coverage_pct": 5.1,
+        "diameter_median_px": 84.3,
+        "diameter_p10_px": 56.6,
+        "diameter_p90_px": 130.4,
+        "foreground_iou_vs_labels": 0.468,
+        "seconds": 36.4
+      }
+    },
+    {
+      "image": "2023_12_14_image_005",
+      "semantic_seconds": 17.2,
+      "watershed": {
+        "count": 43,
+        "coverage_pct": 16.68,
+        "diameter_median_px": 116.0,
+        "diameter_p10_px": 30.7,
+        "diameter_p90_px": 165.6,
+        "foreground_iou_vs_labels": 0.769,
+        "seconds": 17.7
+      },
+      "cellpose": {
+        "count": 35,
+        "coverage_pct": 14.44,
+        "diameter_median_px": 118.8,
+        "diameter_p10_px": 66.5,
+        "diameter_p90_px": 166.6,
+        "foreground_iou_vs_labels": 0.727,
+        "seconds": 38.3
+      }
+    },
+    {
+      "image": "2023_12_14_image_006",
+      "semantic_seconds": 15.0,
+      "watershed": {
+        "count": 62,
+        "coverage_pct": 18.09,
+        "diameter_median_px": 93.5,
+        "diameter_p10_px": 28.4,
+        "diameter_p90_px": 157.4,
+        "foreground_iou_vs_labels": 0.757,
+        "seconds": 15.4
+      },
+      "cellpose": {
+        "count": 36,
+        "coverage_pct": 12.49,
+        "diameter_median_px": 115.1,
+        "diameter_p10_px": 69.6,
+        "diameter_p90_px": 151.1,
+        "foreground_iou_vs_labels": 0.591,
+        "seconds": 32.6
+      }
+    },
+    {
+      "image": "2023_12_14_image_007",
+      "semantic_seconds": 14.4,
+      "watershed": {
+        "count": 41,
+        "coverage_pct": 10.44,
+        "diameter_median_px": 82.3,
+        "diameter_p10_px": 25.2,
+        "diameter_p90_px": 158.1,
+        "foreground_iou_vs_labels": 0.672,
+        "seconds": 14.7
+      },
+      "cellpose": {
+        "count": 24,
+        "coverage_pct": 5.8,
+        "diameter_median_px": 75.5,
+        "diameter_p10_px": 55.9,
+        "diameter_p90_px": 151.7,
+        "foreground_iou_vs_labels": 0.397,
+        "seconds": 30.7
+      }
+    },
+    {
+      "image": "2023_12_14_image_008",
+      "semantic_seconds": 13.6,
+      "watershed": {
+        "count": 34,
+        "coverage_pct": 8.63,
+        "diameter_median_px": 93.7,
+        "diameter_p10_px": 25.2,
+        "diameter_p90_px": 143.5,
+        "foreground_iou_vs_labels": 0.719,
+        "seconds": 13.9
+      },
+      "cellpose": {
+        "count": 22,
+        "coverage_pct": 6.19,
+        "diameter_median_px": 85.4,
+        "diameter_p10_px": 64.2,
+        "diameter_p90_px": 146.4,
+        "foreground_iou_vs_labels": 0.594,
+        "seconds": 31.3
+      }
+    },
+    {
+      "image": "2023_12_14_image_009",
+      "semantic_seconds": 13.8,
+      "watershed": {
+        "count": 33,
+        "coverage_pct": 9.19,
+        "diameter_median_px": 81.4,
+        "diameter_p10_px": 27.6,
+        "diameter_p90_px": 160.5,
+        "foreground_iou_vs_labels": 0.729,
+        "seconds": 14.0
+      },
+      "cellpose": {
+        "count": 19,
+        "coverage_pct": 7.99,
+        "diameter_median_px": 126.2,
+        "diameter_p10_px": 67.0,
+        "diameter_p90_px": 189.2,
+        "foreground_iou_vs_labels": 0.674,
+        "seconds": 33.1
+      }
+    }
+  ]
+}

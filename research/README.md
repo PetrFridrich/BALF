@@ -14,6 +14,8 @@ cenu než to, co vyšlo.
 
 | 2026-11-13 | [supervised-nuclei](2026-11-13-supervised-nuclei/) | Zreprodukovat RF z diplomky a zkusit lepší model | ⚠️ Jaccard 0,772 místo 0,812; lepší model než RF neexistuje, ale HGB je 22× levnější |
 
+| 2026-11-13 | [instance-watershed](2026-11-13-instance-watershed/) | Dá se semantická mapa převést na instance, a obstojí proti Cellpose? | ✅ ano — IoU popředí 0,735 vs 0,578, 15 s vs 35 s; obrysy ale surové |
+
 **Legenda:** ✅ jde dál · ❌ zamítnuto · 🔄 běží · ⏸️ odloženo
 
 ## Co z dosavadních experimentů platí
@@ -37,6 +39,12 @@ cenu než to, co vyšlo.
 - **Trénovací vzorek musí držet skutečné rozložení tříd.** Vyvážené vzorkování
   (33/33/33 proti reálným 88/7/5) stálo 0,05 Jaccardu a ztrojnásobilo rozptyl
   mezi foldy. Pozná se to podle propadlé accuracy při zachovalém Jaccardu.
+- **Fáze 1 má kandidáta:** HistGradientBoosting → semantická mapa → watershed
+  z předpovězených jader. 15 s na snímek na CPU, trénink 120 s, IoU popředí
+  0,735 proti 0,578 u Cellpose. Pozor: náskok je z velké části tím, že jsme
+  na doméně trénovaní, zatímco Cellpose je zero-shot.
+- **Cellpose a náš model odpovídají na různé otázky** — Cellpose obkresluje
+  jádra a husté části buněk, náš model hranici cytoplazmy včetně bledé.
 - **Recall zatím není změřený.** Bez ručních anotací je „najde většinu buněk"
   vizuální soud, ne číslo.
 - **V hustých shlucích model přechází na segmentaci jader** místo celých buněk,
