@@ -117,6 +117,13 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--images", type=int, default=50)
     parser.add_argument("--per-image-samples", type=int, default=30_000)
+    parser.add_argument(
+        "--sampling",
+        choices=("balanced", "natural"),
+        default="natural",
+        help="balanced: equal pixels per class (distorts priors); "
+             "natural: uniform pixels (keeps the true 88/7/5 balance)",
+    )
     args = parser.parse_args()
 
     from sklearn.model_selection import KFold
@@ -138,14 +145,20 @@ def main() -> int:
         X = features(image)
         y = labels.ravel()
 
-        # Stratified subsample for training: rare classes must not vanish.
-        picked = []
-        for value in CLASS_NAMES:
-            idx = np.flatnonzero(y == value)
-            if idx.size:
-                take = min(args.per_image_samples // len(CLASS_NAMES), idx.size)
-                picked.append(rng.choice(idx, size=take, replace=False))
-        pick = np.concatenate(picked)
+        # Training subsample. "balanced" takes equal counts per class, which
+        # guarantees rare classes are present but trains the model on priors
+        # the test data does not have; "natural" samples uniformly and keeps
+        # the real 88/7/5 balance.
+        if args.sampling == "balanced":
+            picked = []
+            for value in CLASS_NAMES:
+                idx = np.flatnonzero(y == value)
+                if idx.size:
+                    take = min(args.per_image_samples // len(CLASS_NAMES), idx.size)
+                    picked.append(rng.choice(idx, size=take, replace=False))
+            pick = np.concatenate(picked)
+        else:
+            pick = rng.choice(y.size, size=min(args.per_image_samples, y.size), replace=False)
         train_x[name], train_y[name] = X[pick], y[pick]
 
         # Uniform subsample for evaluation: must keep the true class balance.
@@ -226,10 +239,12 @@ def main() -> int:
             flush=True,
         )
 
-    (OUT_DIR / "metrics.json").write_text(
+    # Name the file after the sampling mode so the two runs do not collide.
+    (OUT_DIR / f"metrics_{args.sampling}.json").write_text(
         json.dumps(
             {
                 "protocol": "5-fold CV split by image; IoU on uniform pixel subsample",
+                "sampling": args.sampling,
                 "images": len(names),
                 "features": int(train_x[names[0]].shape[1]),
                 "summary": summary,
@@ -240,7 +255,7 @@ def main() -> int:
         ),
         encoding="utf-8",
     )
-    print(f"\n-> {OUT_DIR / 'metrics.json'}", flush=True)
+    print(f"\n-> {OUT_DIR / f'metrics_{args.sampling}.json'}", flush=True)
     return 0
 
 

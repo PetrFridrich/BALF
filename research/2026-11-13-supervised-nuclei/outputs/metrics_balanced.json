@@ -1,0 +1,220 @@
+{
+  "protocol": "5-fold CV split by image; IoU on uniform pixel subsample",
+  "images": 50,
+  "features": 27,
+  "summary": {
+    "RandomForest": {
+      "jaccard_macro_mean": 0.7183,
+      "jaccard_macro_std": 0.0412,
+      "accuracy_mean": 0.9171,
+      "nucleus_jaccard_mean": 0.7196,
+      "cytoplasm_jaccard_mean": 0.5189,
+      "fit_seconds_mean": 231.6
+    },
+    "HistGradientBoosting": {
+      "jaccard_macro_mean": 0.7163,
+      "jaccard_macro_std": 0.0417,
+      "accuracy_mean": 0.9164,
+      "nucleus_jaccard_mean": 0.7159,
+      "cytoplasm_jaccard_mean": 0.5179,
+      "fit_seconds_mean": 17.1
+    },
+    "ExtraTrees": {
+      "jaccard_macro_mean": 0.7191,
+      "jaccard_macro_std": 0.0416,
+      "accuracy_mean": 0.9185,
+      "nucleus_jaccard_mean": 0.7167,
+      "cytoplasm_jaccard_mean": 0.5231,
+      "fit_seconds_mean": 46.4
+    }
+  },
+  "folds": {
+    "RandomForest": [
+      {
+        "fold": 1,
+        "jaccard_macro": 0.7506,
+        "accuracy": 0.9391,
+        "per_class_jaccard": {
+          "pozadi": 0.9415,
+          "cytoplazma": 0.5684,
+          "jadro": 0.7419
+        },
+        "fit_seconds": 234.5,
+        "predict_seconds": 14.0
+      },
+      {
+        "fold": 2,
+        "jaccard_macro": 0.7539,
+        "accuracy": 0.9387,
+        "per_class_jaccard": {
+          "pozadi": 0.9416,
+          "cytoplazma": 0.5824,
+          "jadro": 0.7376
+        },
+        "fit_seconds": 228.0,
+        "predict_seconds": 12.9
+      },
+      {
+        "fold": 3,
+        "jaccard_macro": 0.7511,
+        "accuracy": 0.9403,
+        "per_class_jaccard": {
+          "pozadi": 0.9424,
+          "cytoplazma": 0.5666,
+          "jadro": 0.7442
+        },
+        "fit_seconds": 235.7,
+        "predict_seconds": 12.8
+      },
+      {
+        "fold": 4,
+        "jaccard_macro": 0.6667,
+        "accuracy": 0.8817,
+        "per_class_jaccard": {
+          "pozadi": 0.8762,
+          "cytoplazma": 0.4312,
+          "jadro": 0.6925
+        },
+        "fit_seconds": 234.7,
+        "predict_seconds": 14.2
+      },
+      {
+        "fold": 5,
+        "jaccard_macro": 0.6691,
+        "accuracy": 0.8856,
+        "per_class_jaccard": {
+          "pozadi": 0.8794,
+          "cytoplazma": 0.4461,
+          "jadro": 0.6818
+        },
+        "fit_seconds": 225.3,
+        "predict_seconds": 15.4
+      }
+    ],
+    "HistGradientBoosting": [
+      {
+        "fold": 1,
+        "jaccard_macro": 0.749,
+        "accuracy": 0.9383,
+        "per_class_jaccard": {
+          "pozadi": 0.9405,
+          "cytoplazma": 0.5667,
+          "jadro": 0.7399
+        },
+        "fit_seconds": 16.9,
+        "predict_seconds": 13.6
+      },
+      {
+        "fold": 2,
+        "jaccard_macro": 0.7514,
+        "accuracy": 0.9376,
+        "per_class_jaccard": {
+          "pozadi": 0.9403,
+          "cytoplazma": 0.5778,
+          "jadro": 0.7359
+        },
+        "fit_seconds": 16.5,
+        "predict_seconds": 12.8
+      },
+      {
+        "fold": 3,
+        "jaccard_macro": 0.7505,
+        "accuracy": 0.9397,
+        "per_class_jaccard": {
+          "pozadi": 0.9414,
+          "cytoplazma": 0.5653,
+          "jadro": 0.745
+        },
+        "fit_seconds": 16.5,
+        "predict_seconds": 13.5
+      },
+      {
+        "fold": 4,
+        "jaccard_macro": 0.6654,
+        "accuracy": 0.8812,
+        "per_class_jaccard": {
+          "pozadi": 0.875,
+          "cytoplazma": 0.432,
+          "jadro": 0.6892
+        },
+        "fit_seconds": 18.0,
+        "predict_seconds": 14.5
+      },
+      {
+        "fold": 5,
+        "jaccard_macro": 0.6651,
+        "accuracy": 0.885,
+        "per_class_jaccard": {
+          "pozadi": 0.8784,
+          "cytoplazma": 0.4476,
+          "jadro": 0.6693
+        },
+        "fit_seconds": 17.7,
+        "predict_seconds": 15.7
+      }
+    ],
+    "ExtraTrees": [
+      {
+        "fold": 1,
+        "jaccard_macro": 0.7528,
+        "accuracy": 0.9387,
+        "per_class_jaccard": {
+          "pozadi": 0.9408,
+          "cytoplazma": 0.5675,
+          "jadro": 0.7502
+        },
+        "fit_seconds": 47.2,
+        "predict_seconds": 22.4
+      },
+      {
+        "fold": 2,
+        "jaccard_macro": 0.7503,
+        "accuracy": 0.9373,
+        "per_class_jaccard": {
+          "pozadi": 0.9402,
+          "cytoplazma": 0.5763,
+          "jadro": 0.7346
+        },
+        "fit_seconds": 47.3,
+        "predict_seconds": 22.2
+      },
+      {
+        "fold": 3,
+        "jaccard_macro": 0.7561,
+        "accuracy": 0.9402,
+        "per_class_jaccard": {
+          "pozadi": 0.9415,
+          "cytoplazma": 0.5661,
+          "jadro": 0.7606
+        },
+        "fit_seconds": 47.1,
+        "predict_seconds": 21.9
+      },
+      {
+        "fold": 4,
+        "jaccard_macro": 0.6694,
+        "accuracy": 0.8878,
+        "per_class_jaccard": {
+          "pozadi": 0.8828,
+          "cytoplazma": 0.4492,
+          "jadro": 0.6762
+        },
+        "fit_seconds": 45.7,
+        "predict_seconds": 23.7
+      },
+      {
+        "fold": 5,
+        "jaccard_macro": 0.667,
+        "accuracy": 0.8884,
+        "per_class_jaccard": {
+          "pozadi": 0.8824,
+          "cytoplazma": 0.4566,
+          "jadro": 0.6619
+        },
+        "fit_seconds": 44.8,
+        "predict_seconds": 24.0
+      }
+    ]
+  },
+  "sampling": "balanced"
+}
