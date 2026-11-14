@@ -16,6 +16,8 @@ cenu než to, co vyšlo.
 
 | 2026-11-13 | [instance-watershed](2026-11-13-instance-watershed/) | Dá se semantická mapa převést na instance, a obstojí proti Cellpose? | ✅ ano — IoU popředí 0,735 vs 0,578, 15 s vs 35 s; obrysy ale surové |
 
+| 2026-11-14 | [cellpose-rematch](2026-11-14-cellpose-rematch/) | Cellpose ve správném měřítku, post-processing, a spojení metod | ✅ `fusion` (Cellpose jako markery + naše popředí) je nejlepší kandidát, byť nevyhrává v IoU |
+
 **Legenda:** ✅ jde dál · ❌ zamítnuto · 🔄 běží · ⏸️ odloženo
 
 ## Co z dosavadních experimentů platí
@@ -39,7 +41,16 @@ cenu než to, co vyšlo.
 - **Trénovací vzorek musí držet skutečné rozložení tříd.** Vyvážené vzorkování
   (33/33/33 proti reálným 88/7/5) stálo 0,05 Jaccardu a ztrojnásobilo rozptyl
   mezi foldy. Pozná se to podle propadlé accuracy při zachovalém Jaccardu.
-- **Fáze 1 má kandidáta:** HistGradientBoosting → semantická mapa → watershed
+- **Fáze 1 má kandidáta: `fusion`** — Cellpose instance jako markery, naše
+  předpovězené popředí jako maska. Bere konzervativnost Cellpose (vynechá
+  bordel) a znalost rozsahu cytoplazmy od řízeného modelu. Medián průměru
+  128,9 px je nejblíž změřeným ~120 px.
+- **Pozor na měřítko:** anotované snímky jsou **výřezy, ne zmenšeniny**, buňky
+  mají ~120 px. Chybných 60 px stálo Cellpose 0,064 IoU.
+- **IoU popředí je zavádějící metrika** — odměňuje pokrytí bordelu a rozbitých
+  buněk, které do diferenciálního počtu nepatří. Řazení metod podle ní
+  nesleduj.
+- **Dřívější kandidát:** HistGradientBoosting → semantická mapa → watershed
   z předpovězených jader. 15 s na snímek na CPU, trénink 120 s, IoU popředí
   0,735 proti 0,578 u Cellpose. Pozor: náskok je z velké části tím, že jsme
   na doméně trénovaní, zatímco Cellpose je zero-shot.

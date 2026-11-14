@@ -27,9 +27,9 @@
       "foreground_iou_vs_labels": 0.752
     },
     "fusion": {
-      "count": 16.4,
-      "coverage_pct": 12.162,
-      "diameter_median_px": 142.11,
+      "count": 25.7,
+      "coverage_pct": 12.134,
+      "diameter_median_px": 128.89,
       "foreground_iou_vs_labels": 0.731
     }
   },
@@ -61,10 +61,10 @@
         "foreground_iou_vs_labels": 0.777
       },
       "fusion": {
-        "count": 16,
-        "coverage_pct": 9.88,
-        "diameter_median_px": 147.2,
-        "foreground_iou_vs_labels": 0.765
+        "count": 23,
+        "coverage_pct": 9.87,
+        "diameter_median_px": 126.5,
+        "foreground_iou_vs_labels": 0.766
       }
     },
     {
@@ -94,10 +94,10 @@
         "foreground_iou_vs_labels": 0.728
       },
       "fusion": {
-        "count": 9,
-        "coverage_pct": 8.54,
-        "diameter_median_px": 163.1,
-        "foreground_iou_vs_labels": 0.613
+        "count": 16,
+        "coverage_pct": 8.52,
+        "diameter_median_px": 149.6,
+        "foreground_iou_vs_labels": 0.614
       }
     },
     {
@@ -127,9 +127,9 @@
         "foreground_iou_vs_labels": 0.753
       },
       "fusion": {
-        "count": 13,
-        "coverage_pct": 9.52,
-        "diameter_median_px": 139.9,
+        "count": 20,
+        "coverage_pct": 9.5,
+        "diameter_median_px": 136.1,
         "foreground_iou_vs_labels": 0.663
       }
     },
@@ -160,10 +160,10 @@
         "foreground_iou_vs_labels": 0.753
       },
       "fusion": {
-        "count": 20,
-        "coverage_pct": 18.1,
-        "diameter_median_px": 142.1,
-        "foreground_iou_vs_labels": 0.749
+        "count": 33,
+        "coverage_pct": 17.99,
+        "diameter_median_px": 145.7,
+        "foreground_iou_vs_labels": 0.752
       }
     },
     {
@@ -193,9 +193,9 @@
         "foreground_iou_vs_labels": 0.775
       },
       "fusion": {
-        "count": 17,
-        "coverage_pct": 9.77,
-        "diameter_median_px": 121.7,
+        "count": 21,
+        "coverage_pct": 9.76,
+        "diameter_median_px": 120.7,
         "foreground_iou_vs_labels": 0.81
       }
     },
@@ -226,10 +226,10 @@
         "foreground_iou_vs_labels": 0.784
       },
       "fusion": {
-        "count": 18,
-        "coverage_pct": 17.75,
-        "diameter_median_px": 153.1,
-        "foreground_iou_vs_labels": 0.798
+        "count": 35,
+        "coverage_pct": 17.71,
+        "diameter_median_px": 128.0,
+        "foreground_iou_vs_labels": 0.799
       }
     },
     {
@@ -259,10 +259,10 @@
         "foreground_iou_vs_labels": 0.768
       },
       "fusion": {
-        "count": 15,
-        "coverage_pct": 19.04,
-        "diameter_median_px": 170.7,
-        "foreground_iou_vs_labels": 0.759
+        "count": 37,
+        "coverage_pct": 18.99,
+        "diameter_median_px": 131.9,
+        "foreground_iou_vs_labels": 0.758
       }
     },
     {
@@ -292,10 +292,10 @@
         "foreground_iou_vs_labels": 0.705
       },
       "fusion": {
-        "count": 23,
-        "coverage_pct": 10.63,
-        "diameter_median_px": 136.4,
-        "foreground_iou_vs_labels": 0.678
+        "count": 25,
+        "coverage_pct": 10.62,
+        "diameter_median_px": 112.7,
+        "foreground_iou_vs_labels": 0.677
       }
     },
     {
@@ -325,9 +325,9 @@
         "foreground_iou_vs_labels": 0.728
       },
       "fusion": {
-        "count": 14,
-        "coverage_pct": 8.58,
-        "diameter_median_px": 108.4,
+        "count": 27,
+        "coverage_pct": 8.57,
+        "diameter_median_px": 99.2,
         "foreground_iou_vs_labels": 0.698
       }
     },
@@ -358,7 +358,7 @@
         "foreground_iou_vs_labels": 0.751
       },
       "fusion": {
-        "count": 19,
+        "count": 20,
         "coverage_pct": 9.81,
         "diameter_median_px": 138.5,
         "foreground_iou_vs_labels": 0.773
