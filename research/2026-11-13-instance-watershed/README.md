@@ -1,5 +1,13 @@
 # Instanční masky z předpovězených jader, proti Cellpose
 
+> ⚠️ **OPRAVA (2026-11-14): srovnání s Cellpose v tomto experimentu je neplatné.**
+> Vycházel jsem z toho, že anotované snímky jsou zmenšeniny, a dosadil průměr
+> buňky 60 px. Ve skutečnosti jsou to **výřezy v původním měřítku** a buňky mají
+> ~120 px — změřeno podle průměru jader (69,7 px v anotacích proti ~69 px na
+> plných snímcích). Cellpose tedy běžel s polovičním měřítkem, což podle jeho
+> dokumentace vede k over-splittingu. Čísla pro `watershed` platí, čísla pro
+> `cellpose` ne. Přeměřeno v [cellpose-rematch](../2026-11-14-cellpose-rematch/).
+
 **Datum:** 2026-11-13 · **Verdikt:** ✅ řízená cesta dává lepší masky, ale obrysy jsou surové
 
 ## Co jsme chtěli zjistit

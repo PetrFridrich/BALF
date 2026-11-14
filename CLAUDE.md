@@ -219,10 +219,21 @@ barvení, stejný mikroskop):
 | `github.com/Fido18246/ing_thesis` → `Data/{Images,Labels}_ALL` | **50** | 2012×1518 | 0 pozadí · 1 cytoplazma · 2 jádro |
 | `github.com/PetrFridrich/UnsupervisedCellImageSegmentation` → `data/labels` | 5 | 1440×1080 | totéž |
 
-2012×1518 je **přesně polovina** z 4024×3036. Ověřeno, že těch 50 snímků
-**nejsou** tytéž snímky jako na HF (korelace obsahu 0,09–0,41), ale ze stejné
-série. Použitelné jako ground truth pro segmentaci pozadí/cytoplazmy/jader —
-**nejsou instanční**, neoddělují jednotlivé buňky.
+**Jsou to VÝŘEZY, ne zmenšeniny — pozor, snadno se splete.** 2012×1518 je
+zároveň polovina 4024×3036 i rozměr čtvrtiny toho snímku, takže podle velikosti
+souboru se to rozlišit nedá. Rozhodne velikost buněk: medián průměru jádra
+v anotacích je **69,7 px**, zatímco na plných snímcích ~69 px. Při zmenšení 2×
+by vyšlo ~34,5 px.
+
+**Důsledek: buňky v anotovaných snímcích mají ~120 px**, stejně jako
+v projektových datech. Kdo tomu uvěří jako zmenšení a dosadí 60 px, dá
+segmentačnímu modelu poloviční měřítko — dokumentace Cellpose varuje, že
+příliš malý průměr vede k over-splittingu. Tahle chyba už jednou znehodnotila
+celé srovnání, viz `research/2026-11-14-cellpose-rematch/`.
+
+Ověřeno, že těch 50 snímků **nejsou** tytéž snímky jako na HF (korelace obsahu
+0,09–0,41), ale ze stejné série. Použitelné jako ground truth pro segmentaci
+pozadí/cytoplazmy/jader — **nejsou instanční**, neoddělují jednotlivé buňky.
 
 Diplomka `ing_thesis` řeší segmentaci BAL klasickým ML (filter bank → features →
 SVM/RF). Je to reference, ne mantinel, stejně jako větev `idea`.
