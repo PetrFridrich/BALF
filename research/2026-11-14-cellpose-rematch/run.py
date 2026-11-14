@@ -88,6 +88,19 @@ def load(name: str) -> tuple[np.ndarray, np.ndarray]:
     return image, labels
 
 
+def drop_small(labelled: np.ndarray, min_area: int) -> np.ndarray:
+    """Remove small labels WITHOUT relabelling — keeps instances separate.
+
+    Binarising a label map and re-labelling it merges instances that touch,
+    which silently collapsed the fusion markers on the first run.
+    """
+    markers = labelled.copy()
+    areas = np.bincount(markers.ravel())
+    small = np.flatnonzero(areas < min_area)
+    markers[np.isin(markers, small[small > 0])] = 0
+    return markers
+
+
 def clean_markers(marker_source: np.ndarray, min_area: int) -> np.ndarray:
     markers, count = ndi.label(marker_source)
     if count:
@@ -231,7 +244,9 @@ def main() -> int:
         # each one reaches. Cellpose instances become markers; the mask is our
         # predicted foreground unioned with them, so a cell Cellpose found
         # outside our foreground is not thrown away.
-        fusion_markers = clean_markers(cp120 > 0, MIN_NUCLEUS_AREA)
+        # Use the Cellpose LABEL MAP as markers, not a binarised version:
+        # binarising merges instances that touch.
+        fusion_markers = drop_small(cp120, MIN_NUCLEUS_AREA)
         variants["fusion"] = post_process(
             watershed_from(fusion_markers, np.logical_or(body, cp120 > 0))
         )
