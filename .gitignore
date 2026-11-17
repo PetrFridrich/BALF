@@ -22,3 +22,7 @@ Thumbs.db
 
 # Full-size intermediate renders; committed previews are .jpg
 research/**/outputs/*.png
+
+# Generated annotation batches and cached models - too large for git
+annotation_batches/
+models/
